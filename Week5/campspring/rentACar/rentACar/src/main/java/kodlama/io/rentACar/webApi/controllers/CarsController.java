@@ -1,0 +1,39 @@
+package kodlama.io.rentACar.webApi.controllers;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import kodlama.io.rentACar.business.abstracts.CarService;
+import kodlama.io.rentACar.business.requests.carRequest.CreateCarRequest;
+import kodlama.io.rentACar.business.requests.carRequest.DeleteCarRequest;
+import kodlama.io.rentACar.business.requests.carRequest.UpdateCarRequest;
+import kodlama.io.rentACar.business.responses.carResponse.CreateCarResponse;
+import kodlama.io.rentACar.business.responses.carResponse.DeleteCarResponse;
+import kodlama.io.rentACar.business.responses.carResponse.UpdateCarResponse;
+import lombok.AllArgsConstructor;
+
+@RestController
+@RequestMapping("/api/cars")
+@AllArgsConstructor
+public class CarsController {
+
+	private CarService carService;
+	
+	@PostMapping("/add")
+	CreateCarResponse add(CreateCarRequest createCarRequest) {
+		return this.carService.add(createCarRequest);
+	}
+	
+	@PutMapping("/update")
+	UpdateCarResponse update(UpdateCarRequest updateCarRequest) {
+		return this.carService.update(updateCarRequest);
+	}
+	
+	@DeleteMapping("/delete")
+	DeleteCarResponse delete(DeleteCarRequest deleteCarRequest) {
+		return this.carService.delete(deleteCarRequest);
+	}
+}

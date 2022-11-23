@@ -1,0 +1,63 @@
+package kodlama.io.rentACar.business.concretes;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import kodlama.io.rentACar.business.abstracts.BrandService;
+import kodlama.io.rentACar.business.requests.brandRequest.CreateBrandRequest;
+import kodlama.io.rentACar.business.requests.carRequest.UpdateBrandRequest;
+import kodlama.io.rentACar.business.responses.GetAllBrandsResponse;
+import kodlama.io.rentACar.business.responses.UpdateBrandResponse;
+import kodlama.io.rentACar.business.responses.brandResponse.CreateBrandResponse;
+import kodlama.io.rentACar.core.utilities.mapping.ModelMapperService;
+import kodlama.io.rentACar.dataAccess.abstracts.BrandRepository;
+import kodlama.io.rentACar.entities.concretes.Brand;
+import lombok.AllArgsConstructor;
+
+@Service // Bu sınıf bir business nesnesidir
+@AllArgsConstructor
+public class BrandManager implements BrandService {
+
+	private BrandRepository brandRepository;
+	private ModelMapperService modelMapperService;
+
+	@Override
+	public List<GetAllBrandsResponse> getAll() {
+		// iş kuralları
+		
+		List<Brand> brands = brandRepository.findAll();
+		List<GetAllBrandsResponse> brandsResponse = new ArrayList<GetAllBrandsResponse>();
+
+		for (Brand brand : brands) {
+			GetAllBrandsResponse responseItem = new GetAllBrandsResponse();
+			responseItem.setId(brand.getId());
+			responseItem.setName(brand.getName());
+
+			brandsResponse.add(responseItem);
+		}
+		return brandsResponse;
+	}
+
+	@Override
+	public CreateBrandResponse add(CreateBrandRequest createBrandRequest) {
+		Brand brand = this.modelMapperService.forRequest().map(createBrandRequest, Brand.class);
+		brandRepository.save(brand);
+		
+		CreateBrandResponse createBrandResponse = this.modelMapperService.forResponse().map(brand,
+				CreateBrandResponse.class);
+		return createBrandResponse;
+	}
+
+	@Override
+	public UpdateBrandResponse update(UpdateBrandRequest updateBrandRequest) {
+		Brand brand = this.modelMapperService.forRequest().map(updateBrandRequest, Brand.class);
+		brandRepository.save(brand);
+		
+		UpdateBrandResponse updateBrandResponse = this.modelMapperService.forResponse().map(brand, UpdateBrandResponse.class);
+		return updateBrandResponse;
+	}
+	
+
+}

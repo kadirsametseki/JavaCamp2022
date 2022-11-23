@@ -1,0 +1,40 @@
+package kodlama.io.rentACar.webApi.controllers;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import kodlama.io.rentACar.business.abstracts.BrandService;
+import kodlama.io.rentACar.business.requests.brandRequest.CreateBrandRequest;
+import kodlama.io.rentACar.business.requests.brandRequest.DeleteBrandRequest;
+import kodlama.io.rentACar.business.requests.brandRequest.UpdateBrandRequest;
+import kodlama.io.rentACar.business.responses.brandResponse.CreateBrandResponse;
+import kodlama.io.rentACar.business.responses.brandResponse.DeleteBrandResponse;
+import kodlama.io.rentACar.business.responses.brandResponse.UpdateBrandResponse;
+import lombok.AllArgsConstructor;
+
+@RestController // annotation
+@RequestMapping("/api/brands")
+@AllArgsConstructor
+public class BrandsController {
+	private BrandService brandService;
+
+	@PostMapping("/add")
+	public CreateBrandResponse add(@RequestBody CreateBrandRequest createBrandRequest) {
+		return this.brandService.add(createBrandRequest);
+	}
+	
+	@PutMapping("/update")
+	public UpdateBrandResponse update(UpdateBrandRequest updateBrandRequest) {
+		return this.brandService.update(updateBrandRequest);
+	}
+
+	@DeleteMapping("/delete")
+	public DeleteBrandResponse delete(DeleteBrandRequest deleteBrandRequest) {
+		return this.brandService.delete(deleteBrandRequest);
+	}
+	
+}

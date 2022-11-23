@@ -1,0 +1,11 @@
+package kodlama.io.rentACar.business.abstracts;
+
+import kodlama.io.rentACar.business.requests.CreateCarRequest;
+import kodlama.io.rentACar.business.requests.UpdateCarRequest;
+import kodlama.io.rentACar.business.responses.CreateCarResponse;
+import kodlama.io.rentACar.business.responses.UpdateCarResponse;
+
+public interface CarService {
+	CreateCarResponse add(CreateCarRequest createCarRequest);
+	UpdateCarResponse update(UpdateCarRequest updateCarRequest);
+}

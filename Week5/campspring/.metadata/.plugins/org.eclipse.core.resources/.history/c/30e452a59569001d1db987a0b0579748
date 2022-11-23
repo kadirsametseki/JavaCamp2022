@@ -1,0 +1,5 @@
+package kodlama.io.rentACar.core.utilities.mapping;
+
+public interface ModelMapperService {
+
+}

@@ -1,0 +1,9 @@
+package kodlama.io.rentACar.business.requests;
+
+public class UpdateCarRequest {
+	private int id;
+	private int brandId;
+	private String name;
+	private double unitPrice;
+	private int unitsInStock;
+}
